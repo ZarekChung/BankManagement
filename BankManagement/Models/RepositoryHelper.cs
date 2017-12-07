@@ -7,6 +7,20 @@ namespace BankManagement.Models
 			return new EFUnitOfWork();
 		}		
 		
+		public static CustomerDataCountRepository GetCustomerDataCountRepository()
+		{
+			var repository = new CustomerDataCountRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static CustomerDataCountRepository GetCustomerDataCountRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new CustomerDataCountRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
 		public static sysdiagramsRepository GetsysdiagramsRepository()
 		{
 			var repository = new sysdiagramsRepository();

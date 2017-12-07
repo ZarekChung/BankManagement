@@ -159,7 +159,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CustomerBankInfoController.cs" />
+    <Compile Include="Controllers\CustomerDataCountController.cs" />
     <Compile Include="Controllers\CustomerInfoController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -168,6 +170,12 @@
     </Compile>
     <Compile Include="Models\CustomerDataCount.cs">
       <DependentUpon>Customers.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerDataCount.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerDataCountRepository.cs">
+      <DependentUpon>IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Customers.Context.cs">
       <AutoGen>True</AutoGen>
@@ -321,6 +329,7 @@
     <Content Include="Views\CustomerBankInfo\Details.cshtml" />
     <Content Include="Views\CustomerBankInfo\Edit.cshtml" />
     <Content Include="Views\CustomerBankInfo\Index.cshtml" />
+    <Content Include="Views\CustomerDataCount\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
