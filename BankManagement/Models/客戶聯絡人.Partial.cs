@@ -13,8 +13,7 @@ namespace BankManagement.Models
 		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
 		{
 			var data = from p in db.客戶聯絡人
-				where (p.Email == this.Email &
-					   p.姓名  == this.姓名)
+				where (p.Email == this.Email & p.姓名  == this.姓名)
 				select p.Id;
 			if(data.Count()>1)
 				yield return new ValidationResult("此Email於此客戶已被註冊,請輸入其他Email");

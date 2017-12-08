@@ -5,6 +5,15 @@
 }
 
 <h2>Index</h2>
+@{
+    if (TempData["客戶聯絡人Item"] != null)
+    {
+        var pd = TempData["客戶聯絡人Item"] as BankManagement.Models.客戶聯絡人;
+        <pre> @pd.姓名 資料已更新</pre>
+
+    }
+
+}
 
 <p>
     @Html.ActionLink("Create New", "Create")
