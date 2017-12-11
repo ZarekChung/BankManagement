@@ -12,8 +12,6 @@ namespace BankManagement.Controllers
 {
 	public class CustomersController : BaseController
 	{
-		private CustomerDataEntities db = new CustomerDataEntities();
-
 		// GET: Customers
 		public ActionResult Index()
 		{
@@ -31,7 +29,7 @@ namespace BankManagement.Controllers
 		// GET: Customers/Create
 		public ActionResult Create()
 		{
-			ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱");
+			ViewBag.客戶Id = new SelectList(客戶資料Repo.All(), "Id", "客戶名稱");
 			return View();
 		}
 
@@ -42,6 +40,7 @@ namespace BankManagement.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Create(客戶聯絡人 data)
 		{
+			ViewBag.客戶Id = new SelectList(客戶資料Repo.All(), "Id", "客戶名稱");
 			if (ModelState.IsValid)
 			{
 				客戶聯絡人Repo.Add(data);
@@ -58,7 +57,7 @@ namespace BankManagement.Controllers
 		{
 		
 			var data = 客戶聯絡人Repo.Find(id);
-			ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", data.客戶Id);
+			ViewBag.客戶Id = new SelectList(客戶資料Repo.All(), "Id", "客戶名稱", data.客戶Id);
 			return View(data);
 		}
 
@@ -69,14 +68,15 @@ namespace BankManagement.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Edit(客戶聯絡人 data)
 		{
+			ViewBag.客戶Id = new SelectList(客戶資料Repo.All(), "Id", "客戶名稱", data.客戶Id);
 			if (ModelState.IsValid)
 			{
 				var item = 客戶聯絡人Repo.UpdateAll(data);
 
 				客戶聯絡人Repo.UnitOfWork.Commit();
+				TempData["客戶聯絡人Item"] = item;
 				return RedirectToAction("Index");
 
-				TempData["客戶聯絡人Item"] = item;
 			}
 			return View(data);
 		}
@@ -92,13 +92,6 @@ namespace BankManagement.Controllers
 
 	
 
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				db.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+	
 	}
 }
