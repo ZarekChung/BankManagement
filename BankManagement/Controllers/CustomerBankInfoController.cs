@@ -10,123 +10,94 @@ using BankManagement.Models;
 
 namespace BankManagement.Controllers
 {
-    public class CustomerBankInfoController : Controller
-    {
-        private CustomerDataEntities db = new CustomerDataEntities();
+	public class CustomerBankInfoController : BaseController
+	{
+		// GET: CustomerBankInfo
+		public ActionResult Index()
+		{
+			var data = 客戶銀行資訊Repo.All();
 
-        // GET: CustomerBankInfo
-        public ActionResult Index()
-        {
-            var 客戶銀行資訊 = db.客戶銀行資訊.Include(客 => 客.客戶資料);
-            return View(客戶銀行資訊.ToList());
-        }
+			return View(data);
+		}
 
-        // GET: CustomerBankInfo/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            客戶銀行資訊 客戶銀行資訊 = db.客戶銀行資訊.Find(id);
-            if (客戶銀行資訊 == null)
-            {
-                return HttpNotFound();
-            }
-            return View(客戶銀行資訊);
-        }
+		// GET: CustomerBankInfo/Details/5
+		public ActionResult Details(int id)
+		{
 
-        // GET: CustomerBankInfo/Create
-        public ActionResult Create()
-        {
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱");
-            return View();
-        }
+			var data = 客戶銀行資訊Repo.Find(id);
+			
+			return View(data);
+		}
 
-        // POST: CustomerBankInfo/Create
-        // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
-        // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,客戶Id,銀行名稱,銀行代碼,分行代碼,帳戶名稱,帳戶號碼")] 客戶銀行資訊 客戶銀行資訊)
-        {
-            if (ModelState.IsValid)
-            {
-                db.客戶銀行資訊.Add(客戶銀行資訊);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+		// GET: CustomerBankInfo/Create
+		public ActionResult Create()
+		{
+			ViewBag.客戶Id = new SelectList(客戶資料Repo.All(), "Id", "客戶名稱");
+			return View();
+		}
 
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶銀行資訊.客戶Id);
-            return View(客戶銀行資訊);
-        }
+		// POST: CustomerBankInfo/Create
+		// 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
+		// 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Create(客戶銀行資訊 data)
+		{
+			if (ModelState.IsValid)
+			{
+				客戶銀行資訊Repo.Add(data);
+				客戶銀行資訊Repo.UnitOfWork.Commit();
+				return RedirectToAction("Index");
+			}
 
-        // GET: CustomerBankInfo/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            客戶銀行資訊 客戶銀行資訊 = db.客戶銀行資訊.Find(id);
-            if (客戶銀行資訊 == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶銀行資訊.客戶Id);
-            return View(客戶銀行資訊);
-        }
+			ViewBag.客戶Id = new SelectList(客戶資料Repo.All(), "Id", "客戶名稱", data.客戶Id);
+			return View(data);
+		}
 
-        // POST: CustomerBankInfo/Edit/5
-        // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
-        // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,客戶Id,銀行名稱,銀行代碼,分行代碼,帳戶名稱,帳戶號碼")] 客戶銀行資訊 客戶銀行資訊)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(客戶銀行資訊).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶銀行資訊.客戶Id);
-            return View(客戶銀行資訊);
-        }
+		// GET: CustomerBankInfo/Edit/5
+		public ActionResult Edit(int id)
+		{
 
-        // GET: CustomerBankInfo/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            客戶銀行資訊 客戶銀行資訊 = db.客戶銀行資訊.Find(id);
-            if (客戶銀行資訊 == null)
-            {
-                return HttpNotFound();
-            }
-            return View(客戶銀行資訊);
-        }
+			var item = 客戶銀行資訊Repo.Find(id);
 
-        // POST: CustomerBankInfo/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            客戶銀行資訊 客戶銀行資訊 = db.客戶銀行資訊.Find(id);
-            db.客戶銀行資訊.Remove(客戶銀行資訊);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-    }
+			ViewBag.客戶Id = new SelectList(客戶資料Repo.All(), "Id", "客戶名稱", item.客戶Id);
+			return View(item);
+		}
+
+		// POST: CustomerBankInfo/Edit/5
+		// 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
+		// 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit(int id, FormCollection formValue)
+		{
+			var item = 客戶銀行資訊Repo.Find(id);
+
+			if (ModelState.IsValid)
+			{
+
+				if (UpdateAllData(null,null,item, formValue))
+				{
+					客戶銀行資訊Repo.UnitOfWork.Commit();
+					return RedirectToAction("Index");
+				}
+			}
+			ViewBag.客戶Id = new SelectList(客戶資料Repo.All(), "Id", "客戶名稱", item.客戶Id);
+			return View(item);
+
+		}
+
+		// GET: CustomerBankInfo/Delete/5
+		public ActionResult Delete(int id)
+		{
+			var data = 客戶銀行資訊Repo.Find(id);
+			客戶銀行資訊Repo.Delete(data);
+			客戶銀行資訊Repo.UnitOfWork.Commit();
+
+			return RedirectToAction("Index");
+		}
+
+		
+	}
 }

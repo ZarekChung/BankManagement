@@ -66,19 +66,24 @@ namespace BankManagement.Controllers
 		// 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit(客戶聯絡人 data)
+		public ActionResult Edit(int id, FormCollection formValue)
 		{
-			ViewBag.客戶Id = new SelectList(客戶資料Repo.All(), "Id", "客戶名稱", data.客戶Id);
+			
+			var item = 客戶聯絡人Repo.Find(id);
+			ViewBag.客戶Id = new SelectList(客戶資料Repo.All(), "Id", "客戶名稱", item.客戶Id);
 			if (ModelState.IsValid)
 			{
-				var item = 客戶聯絡人Repo.UpdateAll(data);
-
-				客戶聯絡人Repo.UnitOfWork.Commit();
-				TempData["客戶聯絡人Item"] = item;
-				return RedirectToAction("Index");
+				
+				if (UpdateAllData(null, item, null, formValue))
+				{
+					客戶聯絡人Repo.UnitOfWork.Commit();
+					TempData["客戶聯絡人Item"] = item;
+					return RedirectToAction("Index");
+				}
+				
 
 			}
-			return View(data);
+			return View(item);
 		}
 
 		// GET: Customers/Delete/5

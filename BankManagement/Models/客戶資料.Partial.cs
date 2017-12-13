@@ -24,8 +24,7 @@ namespace BankManagement.Models
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         [Required]
-		[RegularExpression(@"\d{4}-\d{6}", ErrorMessage = "格式必須為092X-XXXXXX")]
-         string 電話 { get; set; }
+        public string 電話 { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         public string 傳真 { get; set; }

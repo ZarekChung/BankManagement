@@ -59,9 +59,10 @@
         <EntityType Name="CustomerDataCount">
           <Key>
             <PropertyRef Name="ID" />
+            
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="客戶名稱" Type="nvarchar" MaxLength="50" />
+          <Property Name="客戶名稱" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="聯絡人數量" Type="int" />
           <Property Name="銀行帳戶數量" Type="int" />
         </EntityType>
@@ -212,7 +213,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="客戶名稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="客戶名稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="聯絡人數量" Type="Int32" />
           <Property Name="銀行帳戶數量" Type="Int32" />
         </EntityType>
