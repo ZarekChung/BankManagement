@@ -10,7 +10,10 @@ namespace BankManagement.Models
 		{
 			return this.All().FirstOrDefault(p => p.Id == Id);
 		}
-
+		public IQueryable<客戶聯絡人> FindType(string type)
+		{
+			return this.All().Where(p =>  p.職稱 == type);
+		}
 
 		public 客戶聯絡人 UpdateAll(客戶聯絡人 data)
 		{
@@ -25,6 +28,7 @@ namespace BankManagement.Models
 
 			return item;
 		}
+		
 
 		public override void Delete(客戶聯絡人 entity)
 		{
@@ -35,6 +39,8 @@ namespace BankManagement.Models
 		{
 			return base.All().Where(p => p.isDeleted == false);
 		}
+
+
 	}
 
 	public  interface I客戶聯絡人Repository : IRepository<客戶聯絡人>

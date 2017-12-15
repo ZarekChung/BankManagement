@@ -14,13 +14,25 @@ namespace BankManagement.Controllers
 	{
 		// GET: Customers
 		public ActionResult Index()
+		{			
+		var data = 客戶聯絡人Repo.All();
+		//var list = 客戶聯絡人Repo.All().Select(x=>x.職稱);
+
+		ViewBag.職稱 = new SelectList(data.Distinct(), "職稱", "職稱");
+		return View(data);	
+		}
+
+		[HttpPost]
+		public ActionResult Index(FormCollection collection)
 		{
-			var data = 客戶聯絡人Repo.All();
+			var type = collection["hidSelected"];
+			var data = 客戶聯絡人Repo.FindType(type);
+			ViewBag.職稱 = new SelectList(客戶聯絡人Repo.All().Distinct(), "職稱", "職稱");
 			return View(data);
 		}
 
 		// GET: Customers/Details/5
-		public ActionResult Details(int id)
+			public ActionResult Details(int id)
 		{
 			var data = 客戶聯絡人Repo.Find(id);
 			return View(data);
@@ -95,9 +107,6 @@ namespace BankManagement.Controllers
 			return RedirectToAction("Index");
 		}
 
-	
-	
-
-	
+		
 	}
 }
