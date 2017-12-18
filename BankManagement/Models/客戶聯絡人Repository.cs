@@ -1,7 +1,8 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-	
+using System.Web.Mvc;
+
 namespace BankManagement.Models
 {   
 	public  class 客戶聯絡人Repository : EFRepository<客戶聯絡人>, I客戶聯絡人Repository
@@ -12,7 +13,12 @@ namespace BankManagement.Models
 		}
 		public IQueryable<客戶聯絡人> FindType(string type)
 		{
-			return this.All().Where(p =>  p.職稱 == type);
+			var data = this.All().Where(p => p.職稱 == type);
+			if (!data.Any())
+			{
+				data = this.All();
+			}
+			return data;
 		}
 
 		public 客戶聯絡人 UpdateAll(客戶聯絡人 data)
@@ -28,8 +34,30 @@ namespace BankManagement.Models
 
 			return item;
 		}
-		
 
+		public SelectList JobList(string type)
+		{
+			var jobList = (from p in this.All()
+				select new
+				{
+					Value = p.職稱,
+					Text = p.職稱
+				}).Distinct().OrderBy(p => p.Value);
+			//if (type.Equals("")) return new SelectList(jobList, "Value", "Text");
+				return new SelectList(jobList, "Value", "Text", type); ;
+		}
+		/*
+		public SelectList JobList()
+		{
+			var jobList = (from p in this.All()
+				select new
+				{
+					Value = p.職稱,
+					Text = p.職稱
+				}).Distinct().OrderBy(p => p.Value);
+			return new SelectList(jobList, "Value", "Text"); ;
+		}
+		*/
 		public override void Delete(客戶聯絡人 entity)
 		{
 			entity.isDeleted = true;

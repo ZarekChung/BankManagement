@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BankManagement.ActionFilters;
 using BankManagement.Models;
 
 namespace BankManagement.Controllers
@@ -13,21 +14,26 @@ namespace BankManagement.Controllers
 	public class CustomersController : BaseController
 	{
 		// GET: Customers
+		
 		public ActionResult Index()
 		{			
 		var data = 客戶聯絡人Repo.All();
-		//var list = 客戶聯絡人Repo.All().Select(x=>x.職稱);
+			
 
-		ViewBag.職稱 = new SelectList(data.Distinct(), "職稱", "職稱");
-		return View(data);	
+			var titleList = 客戶聯絡人Repo.JobList("");
+			ViewBag.JobTitle = titleList;
+			return View(data);	
 		}
 
 		[HttpPost]
+
 		public ActionResult Index(FormCollection collection)
 		{
 			var type = collection["hidSelected"];
 			var data = 客戶聯絡人Repo.FindType(type);
-			ViewBag.職稱 = new SelectList(客戶聯絡人Repo.All().Distinct(), "職稱", "職稱");
+
+			var titleList = 客戶聯絡人Repo.JobList(type);
+			ViewBag.JobTitle = titleList;
 			return View(data);
 		}
 
