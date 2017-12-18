@@ -30,6 +30,13 @@ namespace BankManagement.Controllers
 		// GET: CustomerInfo/Create
 		public ActionResult Create()
 		{
+			var CustomerTypeList = (from p in 客戶分類Repo.All()
+				select new
+				{
+					Value = p.Id,
+					Text = p.客戶分類名稱
+				}).OrderBy(p => p.Value);
+			ViewBag.客戶分類 = new SelectList(CustomerTypeList, "Value", "Text");
 			return View();
 		}
 
@@ -46,6 +53,13 @@ namespace BankManagement.Controllers
 				客戶資料Repo.UnitOfWork.Commit();
 				return RedirectToAction("Index");
 			}
+			var CustomerTypeList = (from p in 客戶分類Repo.All()
+				select new
+				{
+					Value = p.Id,
+					Text = p.客戶分類名稱
+				}).OrderBy(p => p.Value);
+			ViewBag.客戶分類 = new SelectList(CustomerTypeList, "Value", "Text");
 
 
 			return View(data);
@@ -56,6 +70,14 @@ namespace BankManagement.Controllers
 		{
 
 			var data = 客戶資料Repo.Find(id);
+			var CustomerTypeList = (from p in 客戶分類Repo.All()
+				select new
+				{
+					Value = p.Id,
+					Text = p.客戶分類名稱
+				}).OrderBy(p => p.Value);
+			ViewBag.客戶分類 = new SelectList(CustomerTypeList, "Value", "Text", data.客戶分類.客戶分類名稱);
+
 			return View(data);
 		}
 
@@ -76,6 +98,13 @@ namespace BankManagement.Controllers
 					return RedirectToAction("Index");
 				}	
 			}
+			var CustomerTypeList = (from p in 客戶分類Repo.All()
+				select new
+				{
+					Value = p.Id,
+					Text = p.客戶分類名稱
+				}).OrderBy(p => p.Value);
+			ViewBag.客戶分類 = new SelectList(CustomerTypeList, "Value", "Text");
 			return View(item);
 		}
 

@@ -18,7 +18,8 @@ namespace BankManagement.Controllers
 		protected 客戶聯絡人Repository 客戶聯絡人Repo = RepositoryHelper.Get客戶聯絡人Repository();
 
 		protected 客戶銀行資訊Repository 客戶銀行資訊Repo = RepositoryHelper.Get客戶銀行資訊Repository();
-	
+
+		protected 客戶分類Repository 客戶分類Repo = RepositoryHelper.Get客戶分類Repository();
 
 		protected override void HandleUnknownAction(string actionName)
 		{
