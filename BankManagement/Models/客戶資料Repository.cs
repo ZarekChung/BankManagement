@@ -21,6 +21,17 @@ namespace BankManagement.Models
 		{
 			entity.isDeleted = true;
 		}
+
+		public IQueryable<客戶資料> FindCustomerType(int? type)
+		{
+			var data = this.All().Where(p=>p.客戶分類Type== type);
+
+			if (!data.Any())
+			{
+				data = this.All();
+			}
+			return data;
+		}
 	}
 
 	public  interface I客戶資料Repository : IRepository<客戶資料>

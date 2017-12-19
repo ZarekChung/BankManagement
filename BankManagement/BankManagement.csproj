@@ -163,7 +163,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CustomerBankInfoController.cs" />
-    <Compile Include="Controllers\CustomerDataCountController.cs" />
     <Compile Include="Controllers\CustomerInfoController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -574,7 +573,7 @@
     <Content Include="Views\CustomerBankInfo\Details.cshtml" />
     <Content Include="Views\CustomerBankInfo\Edit.cshtml" />
     <Content Include="Views\CustomerBankInfo\Index.cshtml" />
-    <Content Include="Views\CustomerDataCount\Index.cshtml" />
+    <Content Include="Views\CustomerInfo\CountCustomerInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

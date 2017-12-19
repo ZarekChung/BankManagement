@@ -14,10 +14,19 @@ namespace BankManagement.Controllers
 	public class CustomerInfoController : BaseController
 	{
 		// GET: CustomerInfo
+		[DropDownListByCustmerType]
 		public ActionResult Index()
 		{
 			return View(客戶資料Repo.All());
 		}
+
+		[HttpPost]
+		[DropDownListByCustmerType]
+		public ActionResult Index(int? 客戶分類Type)
+		{	
+		var data = 客戶資料Repo.FindCustomerType(客戶分類Type);
+		return View(data);
+		}		
 
 		// GET: CustomerInfo/Details/5
 		public ActionResult Details(int id)
@@ -87,6 +96,13 @@ namespace BankManagement.Controllers
 			客戶資料Repo.UnitOfWork.Commit();
 
 			return RedirectToAction("Index");
+		}
+
+
+		public ActionResult CountCustomerInfo()
+		{
+			var data = CustomerDataCountRepo.All();
+			return View(data);
 		}
 
 		

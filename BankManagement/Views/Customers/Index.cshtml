@@ -21,7 +21,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <p>
-    @using (Html.BeginForm("Index", "Customers", new { 職稱 = 職稱},FormMethod.Post))
+    @using (Html.BeginForm("Index", "Customers", new { 職稱 = 職稱}))
     {
         @Html.DropDownListFor(model => 職稱, null, "--請選擇職稱--", new { @class = "form-control",onchange = "form.submit();" })
     }

@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    IEnumerable<SelectListItem> 客戶分類Type = ViewBag.客戶分類Type; 
 }
 
 <h2>Index</h2>
@@ -9,6 +10,13 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<p>
+    @using (Html.BeginForm("Index", "CustomerInfo", new { 客戶分類Type = 客戶分類Type }))
+    {
+        @Html.DropDownListFor(model => 客戶分類Type, null, "--請選擇客戶分類--", new { @class = "form-control", onchange = "form.submit();" })
+    }
+</p>
+
 <table class="table" id="customer">
     <thead>
     <tr>
