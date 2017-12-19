@@ -14,26 +14,19 @@ namespace BankManagement.Controllers
 	public class CustomersController : BaseController
 	{
 		// GET: Customers
-		
+		[DropDownJobListAttribute]
 		public ActionResult Index()
 		{			
 		var data = 客戶聯絡人Repo.All();
-			
-
-			var titleList = 客戶聯絡人Repo.JobList("");
-			ViewBag.JobTitle = titleList;
 			return View(data);	
 		}
 
 		[HttpPost]
-
-		public ActionResult Index(FormCollection collection)
+		[DropDownJobListAttribute]
+		public ActionResult Index(string 職稱)
 		{
-			var type = collection["hidSelected"];
-			var data = 客戶聯絡人Repo.FindType(type);
 
-			var titleList = 客戶聯絡人Repo.JobList(type);
-			ViewBag.JobTitle = titleList;
+			var data = 客戶聯絡人Repo.FindType(職稱);
 			return View(data);
 		}
 

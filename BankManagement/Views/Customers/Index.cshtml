@@ -2,7 +2,8 @@
 
 @{
     ViewBag.Title = "Index";
-    IEnumerable<SelectListItem> JobTitle = ViewBag.JobTitle;
+    IEnumerable<SelectListItem> 職稱 = ViewBag.職稱; 
+
 }
 
 <h2>Index</h2>
@@ -20,16 +21,13 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <p>
-    @using (Html.BeginForm("Index", "Customers"))
+    @using (Html.BeginForm("Index", "Customers", new { 職稱 = 職稱},FormMethod.Post))
     {
-   @* @Html.DropDownListFor(model => JobTitle,null, "--請選擇職稱--", new { @class = "form-control",onchange = "  $('#hidSelected').val(this.value); form.submit();" })*@
-      @Html.DropDownList("JobTitle", null, "--請選擇職稱--", new { @class = "form-control", onchange = "  $('#hidSelected').val(JobTitle.value); form.submit();" }) 
-      @Html.Hidden("hidSelected")
-
-
-     }
+        @Html.DropDownListFor(model => 職稱, null, "--請選擇職稱--", new { @class = "form-control",onchange = "form.submit();" })
+    }
 </p>
-  
+
+
 
 
 <table class="table" id="customer">
@@ -90,7 +88,7 @@
 
 
 @section scripts
-{
+        {
     <script>
         $(document).ready(function () {
             $('#customer').DataTable({

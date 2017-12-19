@@ -18,7 +18,7 @@ namespace BankManagement.ActionFilters
 					Value = p.Id,
 					Text = p.客戶分類名稱
 				}).OrderBy(p => p.Value);
-			filterContext.Controller.ViewBag.客戶分類Type = new SelectList(customerTypeList, "Value", "Text");
+			filterContext.Controller.ViewBag.客戶分類Type = new  SelectList(customerTypeList, "Value", "Text");
 			base.OnActionExecuted(filterContext);
 		}
 	}
