@@ -7,7 +7,7 @@ namespace BankManagement.Models
     [MetadataType(typeof(客戶資料MetaData))]
     public partial class 客戶資料
     {
-    }
+    } 
     
     public partial class 客戶資料MetaData
     {
@@ -17,8 +17,11 @@ namespace BankManagement.Models
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         [Required]
         public string 客戶名稱 { get; set; }
-        
-        [StringLength(8, ErrorMessage="欄位長度不得大於 8 個字元")]
+
+	    [Required(ErrorMessage = "客戶分類至少選擇一項")]
+	    public string 客戶分類Type { get; set; }
+
+		[StringLength(8, ErrorMessage="欄位長度不得大於 8 個字元")]
         [Required]
         public string 統一編號 { get; set; }
         
