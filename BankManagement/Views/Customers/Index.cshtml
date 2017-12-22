@@ -32,60 +32,79 @@
 
 <table class="table" id="customer">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.職稱)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.姓名)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.手機)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.電話)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.客戶資料.客戶名稱)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            #
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.職稱)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.姓名)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.手機)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.電話)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.客戶資料.客戶名稱)
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.職稱)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.姓名)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.手機)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.電話)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.客戶資料.客戶名稱)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { onclick = "return confirm('確定要刪除該筆資料 ?');" })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    @{
+        var batch = Model.ToArray();
+        var i = 0;
+    }
+    @foreach (var item in Model)
+    {
+        @Html.HiddenFor(modelItem => batch[i].Id)
+        <tr>
+            <td>
+                @Html.CheckBoxFor(modelItem => item.isDeleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.職稱)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.姓名)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.手機)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.電話)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.客戶資料.客戶名稱)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                @Html.ActionLink("Details", "Details", new {id = item.Id}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.Id}, new {onclick = "return confirm('確定要刪除該筆資料 ?');"})
+            </td>
+        </tr>
+        i++;
+    }
 
+    </tbody>
+
+</table>
+@*
+    @using (Html.BeginForm("Delete", "Customers"))
+    {
+        <input type="submit" value="整批刪除"/>
+    }
+*@
 
 @section scripts
         {

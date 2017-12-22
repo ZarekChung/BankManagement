@@ -106,6 +106,22 @@ namespace BankManagement.Controllers
 			return RedirectToAction("Index");
 		}
 
+		[HttpPost]
+		public ActionResult Delete(客戶聯絡人[] batch)
+		{
+				foreach (var item in batch)
+				{
+					if (item.isDeleted)
+					{
+						var data = 客戶聯絡人Repo.Find(item.Id);
+						客戶聯絡人Repo.Delete(data);
+						客戶聯絡人Repo.UnitOfWork.Commit();
+					}
+				}
+				return RedirectToAction("Index");
+	
+		}
+
 		
 	}
 }
