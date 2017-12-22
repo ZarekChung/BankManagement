@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 
 namespace BankManagement.Models
 {   
@@ -24,12 +25,14 @@ namespace BankManagement.Models
 
 		public IQueryable<客戶資料> FindCustomerType(int? type)
 		{
-			var data = this.All().Where(p=>p.客戶分類Type== type);
+			IQueryable<客戶資料> data = type >= 0 ? this.All().Where(p => p.客戶分類Type == type) : this.All();
 
+			/*
 			if (!data.Any())
 			{
 				data = this.All();
 			}
+			*/
 			return data;
 		}
 	}

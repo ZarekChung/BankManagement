@@ -8,24 +8,31 @@ using System.Web;
 using System.Web.Mvc;
 using BankManagement.ActionFilters;
 using BankManagement.Models;
+using PagedList;
 
 namespace BankManagement.Controllers
 {
 	public class CustomerInfoController : BaseController
 	{
+
 		// GET: CustomerInfo
 		[DropDownListByCustmerType]
-		public ActionResult Index()
+		public ActionResult Index(int page=1)
 		{
-			return View(客戶資料Repo.All());
+			int currentPage = page < 1 ? 1 : page;
+			var pagedData = 客戶資料Repo.All().OrderBy(p => p.Id).ToPagedList(currentPage, pageSize: 1);
+		
+			return View(pagedData);
 		}
 
 		[HttpPost]
 		[DropDownListByCustmerType]
-		public ActionResult Index(int? 客戶分類Type)
-		{	
-		var data = 客戶資料Repo.FindCustomerType(客戶分類Type);
-		return View(data);
+		public ActionResult Index(int? 客戶分類Type, int page = 1)
+		{
+			int currentPage = page < 1 ? 1 : page;
+			var data = 客戶資料Repo.FindCustomerType(客戶分類Type);
+		    var pagedData = data.OrderBy(p => p.Id).ToPagedList(currentPage, pageSize: 1);
+			return View(pagedData);
 		}		
 
 		// GET: CustomerInfo/Details/5
